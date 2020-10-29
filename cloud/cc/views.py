@@ -35,7 +35,7 @@ def profilee(request, pk):
     print(df)
     ratings = mdl.predict(df)
     print(ratings)
-    return render(request, 'profileView.html', {'profileData' : profileData})
+    return render(request, 'profileView.html', {'profileData': profileData, 'rating': ratings})
     # return JsonResponse(profileData)
 
 def profiledelete(request,pk):
