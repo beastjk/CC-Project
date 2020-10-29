@@ -15,6 +15,8 @@ import pickle
 import joblib, os
 import pandas as pd
 
+ratings = 0
+
 class ProfileViewset(viewsets.ModelViewSet):
     queryset = models.ProfileEvaluation.objects.all()
     serializer_class = serializers.Profile
@@ -22,6 +24,7 @@ class ProfileViewset(viewsets.ModelViewSet):
 @api_view(['GET', ''])
 def profilee(request, pk):
     queryset = models.ProfileEvaluation.objects.filter(id=pk).values()
+    print(type(queryset))
     profileData = list(queryset)
     # profileData = queryset
 
@@ -35,8 +38,35 @@ def profilee(request, pk):
     print(df)
     ratings = mdl.predict(df)
     print(ratings)
-    return render(request, 'profileView.html', {'profileData': profileData, 'rating': ratings})
+
+    return redirect('listOfUni/')
+    # return render(request, 'profileView.html', {'profileData': profileData, 'rating': ratings})
     # return JsonResponse(profileData)
+
+
+def listOfUni(request):
+    dfUni = pd.read_csv('../datasets/University_list.csv',
+                        error_bad_lines=False, sep='\t')
+    print(dfUni.head())
+    print(dfUni['university name'])
+
+    dfUni = pd.DataFrame(dfUni)
+    # dfFlag = dfUni['flag']
+
+    print(type(dfUni))
+
+
+
+    dfUni['flag'].replace({ 1 : 5, 2 : 4, 4 : 2, 5: 1},  inplace=True)
+
+    print(dfUni.head())
+    print(ratings)
+    # shortList = dfUni.loc[df['flag'] == ratings]
+    # dfUni['flag'].replace(
+    #     to_replace=['1', '2', '4', '5'], value=[5, 4, 2, 1], inplace=True)
+
+
+    return HttpResponse('Hello')
 
 def profiledelete(request,pk):
     models.ProfileEvaluation.objects.filter(id=pk).delete()

@@ -29,7 +29,15 @@
          {% for x in rating %}
                <p class="alert alert-success" style = "text-transform:capitalize;">Rating of University -  {{x}}</p>
          {% endfor %}
-        </div> 
+        </div>
+
+        <form action= "/api/listOfUni">
+            <div class="row">
+                <button class="btn btn-info" type = 'submit'>Click to see list of University</button>
+            </div>
+        </form>
+        
+
     </div>
     </div>
     

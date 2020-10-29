@@ -11,6 +11,7 @@ urlpatterns = [
         {'put': 'update'})),
     path('profiledelete/<str:pk>',views.profiledelete),
     path('loginn',views.login),
+    path('listOfUni/', views.listOfUni),
     path('register',views.index)
 ]
 
