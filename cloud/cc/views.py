@@ -54,7 +54,7 @@ def profilee(request, pk):
 
     print(dfUni.head())
     # print(ratings[0])
-    dfFilter = dfUni[dfUni['flag'] == ratings[0]]
+    dfFilter = dfUni[dfUni['flag'] <= ratings[0]]
 
     # dfFilter = list(dfFilter)
 
