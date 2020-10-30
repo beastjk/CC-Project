@@ -31,14 +31,38 @@
          {% endfor %}
         </div>
 
-        <form action= "/api/listOfUni">
-            <div class="row">
+        <div class="row">
                 <button class="btn btn-info" type = 'submit'>Click to see list of University</button>
-            </div>
-        </form>
-        
-
+        </div>
     </div>
+    <div class="profile-bg">
+        <div class="container">
+            <div class="row mt-5">
+                {% for names in dfFilter.columns %}
+                    <div class="col-md-3 btn btn-secondary">
+                        {{names}}
+                    </div>
+                {% endfor %}
+            </div>
+            
+             {% for b in dfFilter.itertuples %}
+                <div class="row mt-5">
+                    <div class="col-md-3">
+                        {{ b.University }}
+                    </div>
+                    <div class="col-md-3">
+                       <p> {{ b.location }}</p>
+                    </div>
+                    <div class="col-md-3">
+                        {{ b.fees }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ b.flag }}
+                    </div>
+                </div>
+            {% endfor %}
+          
+        </div>
     </div>
     
     <!-- jQuery and JS bundle w/ Popper.js -->

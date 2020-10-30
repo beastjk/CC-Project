@@ -39,34 +39,30 @@ def profilee(request, pk):
     ratings = mdl.predict(df)
     print(ratings)
 
-    return redirect('listOfUni/')
-    # return render(request, 'profileView.html', {'profileData': profileData, 'rating': ratings})
-    # return JsonResponse(profileData)
-
-
-def listOfUni(request):
     dfUni = pd.read_csv('../datasets/University_list.csv',
                         error_bad_lines=False, sep='\t')
     print(dfUni.head())
     print(dfUni['university name'])
 
-    dfUni = pd.DataFrame(dfUni)
+    dfUni = pd.DataFrame(
+        dfUni.values, columns=['University', 'location', 'fees', 'flag'])
     # dfFlag = dfUni['flag']
 
     print(type(dfUni))
 
-
-
-    dfUni['flag'].replace({ 1 : 5, 2 : 4, 4 : 2, 5: 1},  inplace=True)
+    dfUni['flag'].replace({1: 5, 2: 4, 4: 2, 5: 1},  inplace=True)
 
     print(dfUni.head())
-    print(ratings)
-    # shortList = dfUni.loc[df['flag'] == ratings]
-    # dfUni['flag'].replace(
-    #     to_replace=['1', '2', '4', '5'], value=[5, 4, 2, 1], inplace=True)
+    # print(ratings[0])
+    dfFilter = dfUni[dfUni['flag'] == ratings[0]]
 
+    # dfFilter = list(dfFilter)
 
-    return HttpResponse('Hello')
+    print((dfFilter))
+
+    # return redirect('listOfUni/')
+    return render(request, 'profileView.html', {'profileData': profileData, 'rating': ratings, 'dfFilter': dfFilter})
+    # return JsonResponse(profileData)
 
 def profiledelete(request,pk):
     models.ProfileEvaluation.objects.filter(id=pk).delete()
